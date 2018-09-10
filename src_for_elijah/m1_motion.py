@@ -2,8 +2,8 @@
 An opportunity to explore how to make an EV3 Robot move.
 
 Authors: Dave Fisher, David Mutchler, Vibha Alangar,
-their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+their colleagues, and Elijah Williams.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # ------------------------------------------------------------------------------
 # TODO: 2.
@@ -22,7 +22,7 @@ def main():
 
 def go_two_seconds():
     # --------------------------------------------------------------------------
-    # TODO: 3.
+    # DONE: 3.
     #   Make the robot move, by using this pattern:
     #      1. Turn on (start) the wheel motors.
     #      2.     time.sleep(2)  # Pause here, let other processes run for 2 seconds
@@ -40,7 +40,9 @@ def run_test_go_inches():
     """ Tests the go_inches function. """
     # TODO: 4.  Implement this function with at least 3 calls to go_inches
     #   with various inches and speeds.
-
+    go_inches(4, 100)
+    go_inches(3, 40)
+    go_inches(10, 30)
 
 def go_inches(inches, percent_of_max_speed):
     """
@@ -50,6 +52,9 @@ def go_inches(inches, percent_of_max_speed):
       :type percent_of_max_speed: float  -100 to 100
     """
     # TODO: 5.  Implement and test this function.
+    motor = rb.LargeMotor(rb.Plug("B"))
+    motor.start(percent_of_max_speed)
+    motor.stop(inches)
 
 
 main()
