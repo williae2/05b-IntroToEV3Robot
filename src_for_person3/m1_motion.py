@@ -30,7 +30,7 @@ def go_two_seconds():
     #
     # Use the DOT trick to figure out how to start, brake and coast motors.
     # --------------------------------------------------------------------------
-    left_motor = rb.LargeMotor(rb.Plug("A"))  # Constructs a Motor for the left wheel
+    left_motor = rb.LargeMotor(rb.Plug("B"))  # Constructs a Motor for the left wheel
 
 
 def run_test_go_inches():
