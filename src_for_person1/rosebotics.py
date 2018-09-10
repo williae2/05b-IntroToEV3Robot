@@ -194,4 +194,3 @@ class Plug(object):
             plug_names = "'1', '2', '3', '4', 'A', 'B', 'C', or 'D'."
             raise KeyError("The Plug name must be one of: " + plug_names)
         print(self.plug)
-

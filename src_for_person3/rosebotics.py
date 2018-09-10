@@ -170,11 +170,12 @@ class Plug(object):
     A Plug on the EV3 brick:
       either for input (1, 2, 3, 4) or for output (A, B, C, D).
     """
-    map_strings_to_plugs = {1: ev3.INPUT_1, 2: ev3.INPUT_2, 3: ev3.INPUT_3,
-                            4: ev3.INPUT_4, "1": ev3.INPUT_1, "2": ev3.INPUT_2,
-                            "3": ev3.INPUT_3, "4": ev3.INPUT_4,
-                            "A": ev3.OUTPUT_A, "B": ev3.OUTPUT_B,
-                            "C": ev3.OUTPUT_C, "D": ev3.OUTPUT_D, }
+    map_strings_to_plugs = {
+        1: ev3.INPUT_1, 2: ev3.INPUT_2, 3: ev3.INPUT_3, 4: ev3.INPUT_4,
+        "1": ev3.INPUT_1, "2": ev3.INPUT_2, "3": ev3.INPUT_3, "4": ev3.INPUT_4,
+        "A": ev3.OUTPUT_A, "B": ev3.OUTPUT_B, "C": ev3.OUTPUT_C,
+        "D": ev3.OUTPUT_D
+    }
 
     def __init__(self, plug_name):
         """
@@ -192,15 +193,4 @@ class Plug(object):
         except KeyError:
             plug_names = "'1', '2', '3', '4', 'A', 'B', 'C', or 'D'."
             raise KeyError("The Plug name must be one of: " + plug_names)
-
-
-# ev3.LargeMotor
-#
-# ev3.MediumMotor
-#
-# ev3.Motor
-#
-# ev3.Sound
-#
-# Button
-#
+        print(self.plug)
