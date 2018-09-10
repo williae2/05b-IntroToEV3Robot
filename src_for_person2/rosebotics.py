@@ -3,7 +3,6 @@ The python-ev3dev library tailored for Rose-Hulman.
 """
 
 import ev3dev.ev3 as ev3
-import ev3dev.helper
 
 
 ################################################################################
@@ -16,32 +15,32 @@ class StopAction(object):
     HOLD = "hold"
 
 
-class LargeMotor(ev3.LargeMotor, ev3dev.helper.MotorMixin):
-    def __init__(self, output_plug, speed=100, stop_action=StopAction.BRAKE):
-        super().__init__(output_plug)
+class LargeMotor(object):
+    def __init__(self, output_plug, speed=800, stop_action=StopAction.BRAKE):
+        self._motor = ev3.LargeMotor(output_plug.port)
         self.speed_percent = speed  # -100 to 100: a percent of fastest speed
         self.how_to_stop = stop_action
 
     def start(self, speed=None):
         if speed is None:
-            self.run_forever(sp_speed=self.speed_percent)
+            self._motor.run_forever(speed_sp=self.speed_percent)
         else:
-            self.run_forever(sp_speed=speed)
+            self._motor.run_forever(speed_sp=self.speed_percent)
 
     def stop(self, stop_action=None):
         if stop_action is None:
-            super().stop(stop_action=self.how_to_stop)
+            self._motor.stop(stop_action=self.how_to_stop)
         else:
-            super().stop(stop_action=stop_action)
+            self._motor.stop(stop_action=stop_action)
 
     def brake(self):
-        super().stop(stop_action=StopAction.BRAKE)
+        self._motor.stop(stop_action=StopAction.BRAKE)
 
     def coast(self):
-        super().stop(stop_action=StopAction.COAST)
+        self._motor.stop(stop_action=StopAction.COAST)
 
     def hold(self):
-        super().stop(stop_action=StopAction.HOLD)
+        self._motor.stop(stop_action=StopAction.HOLD)
 
 
 ################################################################################
@@ -170,7 +169,7 @@ class Plug(object):
     A Plug on the EV3 brick:
       either for input (1, 2, 3, 4) or for output (A, B, C, D).
     """
-    map_strings_to_plugs = {
+    map_strings_to_ports = {
         1: ev3.INPUT_1, 2: ev3.INPUT_2, 3: ev3.INPUT_3, 4: ev3.INPUT_4,
         "1": ev3.INPUT_1, "2": ev3.INPUT_2, "3": ev3.INPUT_3, "4": ev3.INPUT_4,
         "A": ev3.OUTPUT_A, "B": ev3.OUTPUT_B, "C": ev3.OUTPUT_C,
@@ -189,8 +188,7 @@ class Plug(object):
         if type(plug_name) is str:
             plug_name = plug_name.upper()
         try:
-            self.plug = Plug.map_strings_to_plugs[plug_name]
+            self.port = Plug.map_strings_to_ports[plug_name]
         except KeyError:
             plug_names = "'1', '2', '3', '4', 'A', 'B', 'C', or 'D'."
             raise KeyError("The Plug name must be one of: " + plug_names)
-        print(self.plug)
